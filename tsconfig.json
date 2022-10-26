@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "target": "es2017",
+    "module": "esnext",
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+    "jsx": "preserve",
+    "types": ["vite/client", "@histoire/plugin-vue/components"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.vue", "types/vue.d.ts", "src/components.d.ts"]
+}

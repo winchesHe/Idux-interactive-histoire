@@ -1,0 +1,30 @@
+{
+  "name": "my-vue-app",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "histoire dev",
+    "build": "histoire build",
+    "preview": "histoire preview",
+    "dev:vite": "vite",
+    "build:vite": "vite build",
+    "preview:vite": "vite preview"
+  },
+  "dependencies": {
+    "@histoire/controls": "^0.11.6",
+    "@idux/cdk": "^1.0.1",
+    "@idux/components": "^1.0.1",
+    "@idux/pro": "^1.0.1",
+    "vue": "^3.2.37"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.27.0",
+    "@histoire/plugin-vue": "^0.11.2",
+    "@vitejs/plugin-vue": "^3.1.0",
+    "eslint": "^8.25.0",
+    "histoire": "^0.11.2",
+    "typescript": "^4.6.4",
+    "vite": "^3.1.0"
+  }
+}
