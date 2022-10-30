@@ -7,6 +7,7 @@ import type {
   HstTokenGrid,
   HstTokenList,
   HstColorShades,
+  HstRadio,
 } from '@histoire/controls'
 
 declare module '@vue/runtime-core' {
@@ -21,5 +22,6 @@ declare module '@vue/runtime-core' {
     HstTokenGrid: typeof HstTokenGrid
     HstTokenList: typeof HstTokenList
     HstColorShades: typeof HstColorShades
+    HstRadio: typeof HstRadio
   }
 }
