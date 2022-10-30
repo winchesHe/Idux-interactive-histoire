@@ -1,0 +1,26 @@
+diff --git a/dist/index.cjs b/dist/index.cjs
+index 65b67e6398f9e279818b8cc2ec915dd4754e5250..ed926bda6245948f492dfb35ba50712b228d63a1 100644
+--- a/dist/index.cjs
++++ b/dist/index.cjs
+@@ -522,7 +522,7 @@ function GlobalModeDevPlugin({ uno, tokens, affectedModules, onInvalidate, extra
+         const layer = resolveLayer(getPath(id));
+         if (layer && code.includes("import.meta.hot")) {
+           return `${code}
+-if (import.meta.hot) {
++if (import.meta.hot && import.meta.hot.send) {
+   try { await import.meta.hot.send('${WS_EVENT_PREFIX}', ['${layer}', __vite__css.slice(2,${2 + HASH_LENGTH})]); }
+   catch (e) { console.warn('[unocss-hmr]', e) }
+   if (!import.meta.url.includes('?'))
+diff --git a/dist/index.mjs b/dist/index.mjs
+index 08a60d587787d50c6572beafa52a8330c5750e0c..67a6ab3e95bfeb32f13738d699a54075589b909f 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -511,7 +511,7 @@ function GlobalModeDevPlugin({ uno, tokens, affectedModules, onInvalidate, extra
+         const layer = resolveLayer(getPath(id));
+         if (layer && code.includes("import.meta.hot")) {
+           return `${code}
+-if (import.meta.hot) {
++if (import.meta.hot && import.meta.hot.send) {
+   try { await import.meta.hot.send('${WS_EVENT_PREFIX}', ['${layer}', __vite__css.slice(2,${2 + HASH_LENGTH})]); }
+   catch (e) { console.warn('[unocss-hmr]', e) }
+   if (!import.meta.url.includes('?'))

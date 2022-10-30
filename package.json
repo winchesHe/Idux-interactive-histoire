@@ -29,5 +29,10 @@
     "unplugin-auto-import": "^0.11.4",
     "vite": "^3.1.6",
     "vite-plugin-inspect": "^0.7.5"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "@unocss/vite@0.46.1": "patches/@unocss__vite@0.46.1.patch"
+    }
   }
 }

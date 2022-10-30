@@ -1,5 +1,10 @@
 lockfileVersion: 5.4
 
+patchedDependencies:
+  '@unocss/vite@0.46.1':
+    hash: 57wzp2cwp57b33ehvzhrdv33ki
+    path: patches/@unocss__vite@0.46.1.patch
+
 specifiers:
   '@antfu/eslint-config': ^0.27.0
   '@histoire/controls': ^0.11.6
@@ -3550,7 +3555,7 @@ packages:
     dependencies:
       '@unocss/core': registry.npmmirror.com/@unocss/core/0.46.1
       '@unocss/reset': registry.npmmirror.com/@unocss/reset/0.46.1
-      '@unocss/vite': registry.npmmirror.com/@unocss/vite/0.46.1_vite@3.1.8
+      '@unocss/vite': registry.npmmirror.com/@unocss/vite/0.46.1_57wzp2cwp57b33ehvzhrdv33ki_vite@3.1.8
     transitivePeerDependencies:
       - rollup
       - vite
@@ -3722,7 +3727,7 @@ packages:
       '@unocss/core': registry.npmmirror.com/@unocss/core/0.46.1
     dev: true
 
-  registry.npmmirror.com/@unocss/vite/0.46.1_vite@3.1.8:
+  registry.npmmirror.com/@unocss/vite/0.46.1_57wzp2cwp57b33ehvzhrdv33ki_vite@3.1.8:
     resolution: {integrity: sha512-7jJHxIyAJ765afdk90ajyokz6QMdR3lKJTXzCTjp2afrRfvIeTv+a0cYdytOazCPdqbKclqMuOcMEYjJD8Q2kA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@unocss/vite/-/vite-0.46.1.tgz}
     id: registry.npmmirror.com/@unocss/vite/0.46.1
     name: '@unocss/vite'
@@ -3742,6 +3747,7 @@ packages:
     transitivePeerDependencies:
       - rollup
     dev: true
+    patched: true
 
   registry.npmmirror.com/@vitejs/plugin-vue/3.1.2_vite@3.1.8+vue@3.2.41:
     resolution: {integrity: sha512-3zxKNlvA3oNaKDYX0NBclgxTQ1xaFdL7PzwF6zj9tGFziKwmBa3Q/6XcJQxudlT81WxDjEhHmevvIC4Orc1LhQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vitejs/plugin-vue/-/plugin-vue-3.1.2.tgz}
@@ -4815,7 +4821,7 @@ packages:
       '@unocss/transformer-compile-class': registry.npmmirror.com/@unocss/transformer-compile-class/0.46.1
       '@unocss/transformer-directives': registry.npmmirror.com/@unocss/transformer-directives/0.46.1
       '@unocss/transformer-variant-group': registry.npmmirror.com/@unocss/transformer-variant-group/0.46.1
-      '@unocss/vite': registry.npmmirror.com/@unocss/vite/0.46.1_vite@3.1.8
+      '@unocss/vite': registry.npmmirror.com/@unocss/vite/0.46.1_57wzp2cwp57b33ehvzhrdv33ki_vite@3.1.8
     transitivePeerDependencies:
       - rollup
       - supports-color
