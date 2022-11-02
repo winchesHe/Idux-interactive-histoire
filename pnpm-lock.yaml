@@ -12,6 +12,7 @@ specifiers:
   '@idux/cdk': ^1.0.1
   '@idux/components': ^1.0.1
   '@idux/pro': ^1.0.1
+  '@unocss/reset': ^0.46.3
   '@vitejs/plugin-vue': ^3.1.2
   eslint: ^8.25.0
   histoire: ^0.11.2
@@ -27,6 +28,7 @@ dependencies:
   '@idux/cdk': 1.0.1_vue@3.2.41
   '@idux/components': 1.0.1_vue@3.2.41
   '@idux/pro': 1.0.1_vue@3.2.41
+  '@unocss/reset': registry.npmmirror.com/@unocss/reset/0.46.3
   vue: 3.2.41
 
 devDependencies:
@@ -3687,6 +3689,12 @@ packages:
     name: '@unocss/reset'
     version: 0.46.1
     dev: true
+
+  registry.npmmirror.com/@unocss/reset/0.46.3:
+    resolution: {integrity: sha512-Jb9zx3h5IPVjSAyW+cLq+/cyeTcExtRaK+Jd7Zjcw6LhgeY5uFeEAQPoFVLCX8az7BXO6FQD3cAmWvl/yogAOA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@unocss/reset/-/reset-0.46.3.tgz}
+    name: '@unocss/reset'
+    version: 0.46.3
+    dev: false
 
   registry.npmmirror.com/@unocss/scope/0.46.1:
     resolution: {integrity: sha512-ZDT7sFn1woR5pmArgVoNBVyOFR57E2E3f/MCKKIHX/6OXGoPgKdP6kv04ByvqCkYmAFBgl8OTscxAB6m3bip9w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@unocss/scope/-/scope-0.46.1.tgz}

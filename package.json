@@ -16,6 +16,7 @@
     "@idux/cdk": "^1.0.1",
     "@idux/components": "^1.0.1",
     "@idux/pro": "^1.0.1",
+    "@unocss/reset": "^0.46.3",
     "vue": "^3.2.37"
   },
   "devDependencies": {

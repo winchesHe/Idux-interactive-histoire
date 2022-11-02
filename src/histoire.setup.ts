@@ -5,6 +5,7 @@ import IduxComponents from '@idux/components'
 import IduxPro from '@idux/pro'
 
 // 引入unocss
+import '@unocss/reset/tailwind.css'
 import 'uno.css'
 
 // 导入 cdk 样式，注意是 `index`, 因为 cdk 不会区分主题
