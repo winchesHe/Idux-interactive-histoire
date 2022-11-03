@@ -2,14 +2,16 @@
   "name": "my-vue-app",
   "private": true,
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "histoire dev",
     "build": "histoire build",
     "preview": "histoire preview",
     "dev:vite": "vite",
     "build:vite": "vite build",
-    "preview:vite": "vite preview"
+    "preview:vite": "vite preview",
+    "git": "git add . && git cz && git push",
+    "create-husky-hooks": "husky install",
+    "commit": "git-cz"
   },
   "dependencies": {
     "@histoire/controls": "^0.11.6",
@@ -21,10 +23,19 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.27.0",
+    "@commitlint/cli": "^17.2.0",
+    "@commitlint/config-conventional": "^17.2.0",
     "@histoire/plugin-vue": "^0.11.2",
     "@vitejs/plugin-vue": "^3.1.2",
+    "commitizen": "^4.2.5",
+    "commitlint": "^17.2.0",
+    "commitlint-config-cz": "^0.13.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "cz-customizable": "^7.0.0",
     "eslint": "^8.25.0",
     "histoire": "^0.11.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
     "typescript": "^4.6.4",
     "unocss": "^0.46.1",
     "unplugin-auto-import": "^0.11.4",
@@ -35,5 +46,15 @@
     "patchedDependencies": {
       "@unocss/vite@0.46.1": "patches/@unocss__vite@0.46.1.patch"
     }
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,vue}": [
+      "eslint --fix"
+    ]
   }
 }
