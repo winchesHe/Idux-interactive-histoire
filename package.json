@@ -9,9 +9,8 @@
     "dev:vite": "vite",
     "build:vite": "vite build",
     "preview:vite": "vite preview",
-    "git": "git add . && git cz && git push",
-    "create-husky-hooks": "husky install",
-    "commit": "git-cz"
+    "git-commit": "git add . && git cz && git push",
+    "create-husky-hooks": "husky install"
   },
   "dependencies": {
     "@histoire/controls": "^0.11.6",
