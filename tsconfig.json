@@ -10,7 +10,7 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "jsx": "preserve",
-    "types": ["vite/client", "@histoire/plugin-vue/components"]
+    "types": ["vite/client", "@histoire/plugin-vue/components", "@vueuse/core"]
   },
   "include": ["src/**/*.ts", "src/**/*.vue", "types/vue.d.ts", "src/components.d.ts"]
 }

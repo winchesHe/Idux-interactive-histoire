@@ -13,7 +13,7 @@ export default defineConfig({
       include: [
         /\.vue$/, /\.vue\?vue/, // .vue
       ],
-      imports: ['vue'],
+      imports: ['vue', '@vueuse/core'],
       dirs: ['src/components/**/*'],
       // 需自动生成时打开
       // dts: 'src/auto-imports.d.ts',
