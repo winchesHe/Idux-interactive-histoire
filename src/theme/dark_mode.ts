@@ -1,5 +1,3 @@
-import { useDark, useLocalStorage, useMutationObserver } from '@vueuse/core'
-
 let vueuseColorScheme = useLocalStorage('vueuse-color-scheme', 'auto')
 let isDark = useDark({ valueDark: '' })
 const setDarkMode = () => {
@@ -34,5 +32,3 @@ useMutationObserver(document.documentElement, (mutations) => {
 }, {
   attributes: true,
 })
-
-export const darkValue = isDark.value

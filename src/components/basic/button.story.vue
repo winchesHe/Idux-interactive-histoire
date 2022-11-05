@@ -2,6 +2,7 @@
 import type { ButtonMode, ButtonSize } from '@idux/components'
 import { IxButton } from '@idux/components'
 import { logEvent } from 'histoire/client'
+import { isDark } from '@utils/index'
 
 const btnValue1: Ref<ButtonMode> = ref('default')
 const btnSize1: Ref<ButtonSize> = ref('md')
@@ -47,13 +48,13 @@ const ButtonSizeOptions: Ref<HstControlOption[]> = ref([
 <template>
   <Story title="Basic/Button" icon="teenyicons:button-outline">
     <Variant title="按钮类型">
-      <div class="flex mb">
-        Click the button on the right to display different modss of Idux-buttons：
+      <div class="flex mb" :class="isDark ? 'dark' : ''">
+        {{ isDark }}
+        Click the button on the right to display different mode of Idux-buttons：
       </div>
       <ix-button
-        :mode="btnValue1" :href="btnValue1 === 'link' ? 'https://github.com/IDuxFE/idux' : ''" :target="btnValue1 === 'link' ? '_blank' : ''"
-        :size="btnSize1"
-        @click="logEvent('btnClick', $el)"
+        :mode="btnValue1" :href="btnValue1 === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
+        :target="btnValue1 === 'link' ? '_blank' : ''" :size="btnSize1" @click="logEvent('btnClick', $el)"
       >
         {{ btnValue1 }}
       </ix-button>
