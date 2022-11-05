@@ -5,6 +5,7 @@ import IduxComponents from '@idux/components'
 import IduxPro from '@idux/pro'
 
 import './theme/style.css'
+import './theme/dark_mode'
 // 引入unocss
 import '@unocss/reset/tailwind.css'
 import 'uno.css'
