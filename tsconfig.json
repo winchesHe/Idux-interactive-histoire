@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
+    "baseUrl": ".",
     "target": "es2017",
     "module": "esnext",
     "lib": ["esnext", "DOM", "DOM.Iterable"],
@@ -10,6 +10,12 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "jsx": "preserve",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@theme/*": ["src/theme/*"],
+      "@utils/*": ["src/utils/*"]
+    },
     "types": ["vite/client", "@histoire/plugin-vue/components", "@vueuse/core"]
   },
   "include": ["src/**/*.ts", "src/**/*.vue", "types/vue.d.ts", "src/components.d.ts"]

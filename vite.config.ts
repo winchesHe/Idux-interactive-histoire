@@ -1,3 +1,4 @@
+import path from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -6,13 +7,18 @@ import Inspect from 'vite-plugin-inspect'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': `${path.resolve(__dirname, 'src')}/`,
+      '@components': `${path.resolve(__dirname, 'src/components')}/`,
+      '@theme': `${path.resolve(__dirname, 'src/theme')}/`,
+      '@utils': `${path.resolve(__dirname, 'src/utils')}/`,
+    },
+  },
   plugins: [
     Vue(),
     Inspect(),
     AutoImport({
-      include: [
-        /\.vue$/, /\.vue\?vue/, // .vue
-      ],
       imports: ['vue', '@vueuse/core'],
       dirs: ['src/components/**/*'],
       // 需自动生成时打开
