@@ -30,6 +30,7 @@ specifiers:
   unplugin-auto-import: ^0.11.4
   vite: ^3.1.6
   vite-plugin-inspect: ^0.7.5
+  vite-plugin-vue-setup-extend-plus: ^0.1.0
   vue: ^3.2.37
 
 dependencies:
@@ -60,6 +61,7 @@ devDependencies:
   unplugin-auto-import: registry.npmmirror.com/unplugin-auto-import/0.11.4_@vueuse+core@9.4.0
   vite: registry.npmmirror.com/vite/3.1.8
   vite-plugin-inspect: registry.npmmirror.com/vite-plugin-inspect/0.7.5_vite@3.1.8
+  vite-plugin-vue-setup-extend-plus: registry.npmmirror.com/vite-plugin-vue-setup-extend-plus/0.1.0
 
 packages:
 
@@ -7275,6 +7277,12 @@ packages:
       vite: registry.npmmirror.com/vite/3.1.8
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  registry.npmmirror.com/vite-plugin-vue-setup-extend-plus/0.1.0:
+    resolution: {integrity: sha512-pa27KIsHIBvBMv4xz9uB3UCfAuP2tr7PLlFhCS9vw+aXd326LEHsvhqd3hCQDOR5MjlQVyQH6vwuGr3u+KRiiw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vite-plugin-vue-setup-extend-plus/-/vite-plugin-vue-setup-extend-plus-0.1.0.tgz}
+    name: vite-plugin-vue-setup-extend-plus
+    version: 0.1.0
     dev: true
 
   registry.npmmirror.com/vite/3.1.8:
