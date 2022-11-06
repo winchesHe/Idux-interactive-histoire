@@ -4,6 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Unocss from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
+import Components from 'unplugin-vue-components/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,10 +23,14 @@ export default defineConfig({
       imports: ['vue', '@vueuse/core'],
       dirs: ['src/components/**/*'],
       // 需自动生成时打开
-      // dts: 'src/auto-imports.d.ts',
+      dts: 'src/auto-imports.d.ts',
       // false 关闭自动导入防止覆盖额外添加内容
-      dts: false,
+      // dts: false,
       vueTemplate: true,
+    }),
+    Components({
+      dirs: ['src/components/common'],
+      dts: 'src/components.d.ts',
     }),
     Unocss(),
   ],

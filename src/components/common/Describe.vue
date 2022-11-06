@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { isDark } from '@utils/index'
+defineProps<{
+  title?: string
+}>()
 </script>
 
 <template>

@@ -2,8 +2,6 @@
 import type { ButtonMode, ButtonSize } from '@idux/components'
 import { IxButton } from '@idux/components'
 import { logEvent } from 'histoire/client'
-import { isDark } from '@utils/index'
-import DescribeText from '@/components/common/DescribeText.vue'
 
 const btnValue1: Ref<ButtonMode> = ref('default')
 const btnSize1: Ref<ButtonSize> = ref('md')
@@ -49,9 +47,9 @@ const ButtonSizeOptions: Ref<HstControlOption[]> = ref([
 <template>
   <Story title="Basic/Button" icon="teenyicons:button-outline">
     <Variant title="按钮类型">
-      <describe-text>
+      <Describe>
         按钮共有 5 种类型：主按钮、默认按钮、虚线按钮和链接按钮，通过设置 mode 来使用不同的类型。
-      </describe-text>
+      </Describe>
       <ix-button
         :mode="btnValue1" :href="btnValue1 === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
         :target="btnValue1 === 'link' ? '_blank' : ''" :size="btnSize1" @click="logEvent('btnClick', $el)"
@@ -66,10 +64,7 @@ const ButtonSizeOptions: Ref<HstControlOption[]> = ref([
     </Variant>
 
     <Variant title="危险按钮">
-      <div class="flex mb" :class="isDark ? 'dark' : ''">
-        {{ isDark }}
-        Click the button on the right to display different mode of Idux-buttons：
-      </div>
+      <Describe>通过设置 danger 将按钮标识为危险状态。</Describe>
       <ix-button
         :mode="btnValue1" :href="btnValue1 === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
         :target="btnValue1 === 'link' ? '_blank' : ''" :size="btnSize1" @click="logEvent('btnClick', $el)"
