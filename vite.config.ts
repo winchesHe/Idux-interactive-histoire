@@ -29,4 +29,9 @@ export default defineConfig({
     }),
     Unocss(),
   ],
+  server: {
+    hmr: {
+      overlay: false, // fix：unocss服务保存
+    },
+  },
 })
