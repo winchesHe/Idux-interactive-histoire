@@ -3,7 +3,7 @@ import type { ButtonMode, ButtonSize } from '@idux/components'
 import { IxButton } from '@idux/components'
 import { logEvent } from 'histoire/client'
 import { isDark } from '@utils/index'
-import DescribeVue from '@components/common/Describe.vue'
+import DescribeText from '@/components/common/DescribeText.vue'
 
 const btnValue1: Ref<ButtonMode> = ref('default')
 const btnSize1: Ref<ButtonSize> = ref('md')
@@ -49,9 +49,9 @@ const ButtonSizeOptions: Ref<HstControlOption[]> = ref([
 <template>
   <Story title="Basic/Button" icon="teenyicons:button-outline">
     <Variant title="按钮类型">
-      <describe-vue>
+      <describe-text>
         按钮共有 5 种类型：主按钮、默认按钮、虚线按钮和链接按钮，通过设置 mode 来使用不同的类型。
-      </describe-vue>
+      </describe-text>
       <ix-button
         :mode="btnValue1" :href="btnValue1 === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
         :target="btnValue1 === 'link' ? '_blank' : ''" :size="btnSize1" @click="logEvent('btnClick', $el)"
