@@ -1,0 +1,13 @@
+ls:
+  src/*:
+    .ts: camelCase
+    .spec.ts: camelCase
+    .d.ts: kebabcase
+    .vue: PascalCase
+    .story.vue: pointcase
+    .md: PascalCase
+    .zh.md: PascalCase
+    .en.md: PascalCase
+
+ignore:
+  - node_modules

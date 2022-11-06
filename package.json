@@ -10,7 +10,8 @@
     "build:vite": "vite build",
     "preview:vite": "vite preview",
     "git-commit": "git add . && git cz && git push",
-    "create-husky-hooks": "husky install"
+    "create-husky-hooks": "husky install",
+    "ls-lint": "ls-lint"
   },
   "dependencies": {
     "@histoire/controls": "^0.11.6",
@@ -24,6 +25,7 @@
     "@antfu/eslint-config": "^0.27.0",
     "@commitlint/cli": "^17.2.0",
     "@histoire/plugin-vue": "^0.11.2",
+    "@ls-lint/ls-lint": "^1.11.2",
     "@vitejs/plugin-vue": "^3.1.2",
     "@vueuse/core": "^9.4.0",
     "commitizen": "^4.2.5",
