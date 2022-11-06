@@ -40,8 +40,7 @@
     "unocss": "^0.46.1",
     "unplugin-auto-import": "^0.11.4",
     "vite": "^3.1.6",
-    "vite-plugin-inspect": "^0.7.5",
-    "vite-plugin-vue-setup-extend-plus": "^0.1.0"
+    "vite-plugin-inspect": "^0.7.5"
   },
   "pnpm": {
     "patchedDependencies": {

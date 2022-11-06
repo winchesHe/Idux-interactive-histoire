@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es2017",
-    "module": "esnext",
-    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
@@ -18,5 +18,5 @@
     },
     "types": ["vite/client", "@histoire/plugin-vue/components", "@vueuse/core"]
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "types/vue.d.ts", "src/components.d.ts"]
+  "exclude": [".histoire", "node_modules", "public"]
 }

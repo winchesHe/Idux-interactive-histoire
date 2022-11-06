@@ -1,4 +1,4 @@
-<script setup lang="ts" name="Describe" inheritAttrs="false">
+<script setup lang="ts">
 import { isDark } from '@utils/index'
 </script>
 
