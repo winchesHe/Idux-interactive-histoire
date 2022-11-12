@@ -1,14 +1,13 @@
 {
   "name": "my-vue-app",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "histoire dev",
     "build": "histoire build",
     "preview": "histoire preview",
     "dev:vite": "vite",
-    "build:vite": "vite build",
-    "preview:vite": "vite preview",
+    "lint:fix": "eslint . --cache --fix",
     "git-commit": "git add . && git cz && git push",
     "create-husky-hooks": "husky install",
     "ls-lint": "ls-lint",
@@ -59,7 +58,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,vue}": [
-      "eslint --fix"
+      "eslint --cache --fix"
     ]
   }
 }
