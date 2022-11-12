@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { ButtonMode, ButtonSize } from '@idux/components'
-import { IxButton } from '@idux/components'
 import { logEvent } from 'histoire/client'
 
 const btnValue1: Ref<ButtonMode> = ref('default')

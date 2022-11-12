@@ -17,7 +17,7 @@
       "utils/*": ["src/utils/*"],
       "script/*": ["src/script/*"]
     },
-    "types": ["vite/client", "@histoire/plugin-vue/components", "@vueuse/core"]
+    "types": ["vite/client", "@histoire/plugin-vue/components", "@vueuse/core", "@idux/components/types"]
   },
   "exclude": [".histoire", "node_modules", "public"]
 }
