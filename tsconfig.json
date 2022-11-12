@@ -12,9 +12,10 @@
     "jsx": "preserve",
     "paths": {
       "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
-      "@theme/*": ["src/theme/*"],
-      "@utils/*": ["src/utils/*"]
+      "components/*": ["src/components/*"],
+      "theme/*": ["src/theme/*"],
+      "utils/*": ["src/utils/*"],
+      "script/*": ["src/script/*"]
     },
     "types": ["vite/client", "@histoire/plugin-vue/components", "@vueuse/core"]
   },

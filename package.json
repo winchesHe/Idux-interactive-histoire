@@ -11,7 +11,8 @@
     "preview:vite": "vite preview",
     "git-commit": "git add . && git cz && git push",
     "create-husky-hooks": "husky install",
-    "ls-lint": "ls-lint"
+    "ls-lint": "ls-lint",
+    "create": "tsx src/script/create/index.ts create"
   },
   "dependencies": {
     "@histoire/controls": "^0.11.6",
@@ -26,6 +27,7 @@
     "@commitlint/cli": "^17.2.0",
     "@histoire/plugin-vue": "^0.11.2",
     "@ls-lint/ls-lint": "^1.11.2",
+    "@types/inquirer": "^9.0.3",
     "@vitejs/plugin-vue": "^3.1.2",
     "@vueuse/core": "^9.4.0",
     "commitizen": "^4.2.5",
@@ -35,7 +37,9 @@
     "eslint": "^8.25.0",
     "histoire": "^0.11.2",
     "husky": "^8.0.0",
+    "inquirer": "^9.1.4",
     "lint-staged": "^13.0.3",
+    "tsx": "^3.12.0",
     "typescript": "^4.6.4",
     "unocss": "^0.46.1",
     "unplugin-auto-import": "^0.11.4",

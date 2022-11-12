@@ -6,6 +6,7 @@ ls:
     .vue: PascalCase
     .story.vue: pointcase
     .md: PascalCase
+    .story.md: pointcase
     .zh.md: PascalCase
     .en.md: PascalCase
 
