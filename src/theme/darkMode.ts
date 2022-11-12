@@ -1,12 +1,11 @@
 let vueuseColorScheme = useLocalStorage('vueuse-color-scheme', 'auto')
-let isDark = useDark({ valueDark: '' })
+export const isDark = useDark({ valueDark: '' })
 const setDarkMode = () => {
   setTimeout(() => {
     const classList = Array.from(document.documentElement.classList)
     const vueuseColorScheme = useLocalStorage('vueuse-color-scheme', 'auto')
-    isDark = useDark({ valueDark: '' })
     let colorMode
-    if (vueuseColorScheme.value === 'auto' && isDark.value)
+    if (vueuseColorScheme.value === 'auto')
       colorMode = 'dark'
     else if (vueuseColorScheme.value === 'dark')
       colorMode = 'dark'

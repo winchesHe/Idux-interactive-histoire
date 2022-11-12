@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { isDark } from 'utils/index'
-defineProps<{
-  title?: string
-}>()
+import { isDark } from '@/theme/darkMode'
 </script>
 
 <template>
