@@ -11,7 +11,8 @@
     "git-commit": "git add . && git cz && git push",
     "create-husky-hooks": "husky install",
     "ls-lint": "ls-lint",
-    "create": "tsx src/script/create/index.ts create"
+    "create": "tsx src/script/create/index.ts create",
+    "create:grid": "tsx src/script/create/index.ts create -g true"
   },
   "dependencies": {
     "@histoire/controls": "^0.11.6",

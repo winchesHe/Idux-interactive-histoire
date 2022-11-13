@@ -1,8 +1,8 @@
 export {}
 declare global {
   type Ref<T = any> = import('vue').Ref<T>
-  interface HstControlOption {
+  interface HstControlOption<T = any> {
     label: string
-    value: any
+    value: T
   }
 }

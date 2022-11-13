@@ -9,7 +9,8 @@ module.exports = {
     { value: 'pref', name: '🌩性能:    提升性能' },
     { value: 'test', name: '✅测试:    添加一个测试' },
     { value: 'chore', name: '🔧工具:    开发工具变动(构建、脚手架工具等)' },
-    { value: 'revert', name: '⏪回滚:    代码回退' }
+    { value: 'revert', name: '⏪回滚:    代码回退' },
+    { value: 'update', name: '⏰更新:   当其他都不满足时使用'}
   ],
 
   // scope 类型（定义之后，可通过上下键选择）
