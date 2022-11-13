@@ -1,4 +1,4 @@
-import { HstRadio } from '@histoire/controls'
+import { HstRadio, HstSelect } from '@histoire/controls'
 import '@vue/runtime-core'
 
 export {}
@@ -6,5 +6,6 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     HstRadio: typeof HstRadio
+    HstSelect: typeof HstSelect
   }
 }
