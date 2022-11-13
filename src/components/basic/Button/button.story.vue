@@ -12,6 +12,7 @@ function initState() {
     disabled: true,
     loading: true,
     ghost: true,
+    block: true,
     stateLoading: false,
     stateDisabled: false,
   }
@@ -228,6 +229,23 @@ const IconOptions = ref(icon)
       </template>
     </variant>
 
+    <Variant title="危险按钮" :init-state="initState">
+      <template #default="{ state }">
+        <Describe>通过设置 danger 将按钮标识为危险状态。</Describe>
+        <ix-button
+          :mode="state.value" :href="state.value === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
+          :target="state.value === 'link' ? '_blank' : ''" :danger="state.danger" @click="logEvent('btnClick', $el)"
+        >
+          {{ state.value }}
+        </ix-button>
+      </template>
+
+      <template #controls="{ state }">
+        <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
+        <HstCheckbox v-model="state.danger" title="danger" />
+      </template>
+    </variant>
+
     <Variant title="按钮形状" :init-state="initState">
       <template #default="{ state }">
         <Describe>除了默认的长方形按钮，还提供了圆角长方形、正方形、圆形等形状。</Describe>
@@ -247,20 +265,55 @@ const IconOptions = ref(icon)
       </template>
     </variant>
 
-    <Variant title="危险按钮" :init-state="initState">
+    <Variant title="Block 按钮" :init-state="initState">
       <template #default="{ state }">
-        <Describe>通过设置 danger 将按钮标识为危险状态。</Describe>
-        <ix-button
-          :mode="state.value" :href="state.value === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
-          :target="state.value === 'link' ? '_blank' : ''" :danger="state.danger" @click="logEvent('btnClick', $el)"
-        >
-          {{ state.value }}
-        </ix-button>
+        <Describe>通过设置 block 将按钮宽度调整为自适应其父元素的宽度, 该按钮常见于移动端和一些表单场景中。</Describe>
+        <IxSpace vertical block>
+          <IxButton :mode="state.value" :block="state.block">
+            {{ state.value }}
+          </IxButton>
+          <IxButton mode="primary" :block="state.block">
+            primary
+          </IxButton>
+          <IxButton mode="dashed" :block="state.block">
+            dashed
+          </IxButton>
+          <IxButton mode="text" :block="state.block">
+            text
+          </IxButton>
+          <IxButton mode="link" :block="state.block" href="https://github.com/IDuxFE/idux" target="_blank">
+            link
+          </IxButton>
+        </IxSpace>
       </template>
 
       <template #controls="{ state }">
         <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
-        <HstCheckbox v-model="state.danger" title="danger" />
+        <HstCheckbox v-model="state.block" title="block" />
+      </template>
+    </variant>
+
+    <Variant title="按钮组" :init-state="initState">
+      <template #default="{ state }">
+        <Describe>提供文字提示 + 操作行为。</Describe>
+        <IxSpace>
+          <IxButtonGroup>
+            <IxButton :mode="state.value" block>
+              {{ state.value }}
+            </IxButton>
+            <IxButton :mode="state.value" icon="search" shape="square" />
+          </IxButtonGroup>
+          <IxButtonGroup>
+            <IxButton block>
+              default
+            </IxButton>
+            <IxButton icon="down" shape="square" />
+          </IxButtonGroup>
+        </IxSpace>
+      </template>
+
+      <template #controls="{ state }">
+        <HstRadio v-model="state.value" title="mode" :options="ButtonOptions" />
       </template>
     </variant>
   </story>
