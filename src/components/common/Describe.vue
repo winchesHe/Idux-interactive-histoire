@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { isDark } from '@/theme/darkMode'
 </script>
 
 <template>
-  <div class="flex mb flex-col" :class="isDark ? 'dark' : ''">
+  <div class="flex mb flex-col">
     <slot class="mb" />
   </div>
 </template>
