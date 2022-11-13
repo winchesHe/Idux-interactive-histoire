@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'fs'
 import consola from 'consola'
 import { lowerFirst, upperFirst } from '../utils'
-import type { CategoryObjValue, CategoryType, ComponentType } from './constant'
+import type { CategoryObjValue, CategoryType, ComponentType, optionsType } from './constant'
 import { categoryList, categoryObj, componentCollection, createStoryComponent, createStoryMd, resolver } from './constant'
 import { getCategory } from './questions/category'
 
@@ -31,7 +31,7 @@ export const getComponentChoices = async () => {
   }
 }
 
-export const generateStoryDoc = (component: ComponentType) => {
+export const generateStoryDoc = (component: ComponentType, options: optionsType) => {
   const category = categoryList.find(type => (componentCollection[type]?.components as [ComponentType])?.includes(component))!
   if (!category)
     return consola.error(`${component} not a legal component of Idux, please check and re-enter!`)
@@ -46,7 +46,7 @@ export const generateStoryDoc = (component: ComponentType) => {
   const storyDocFileMd = resolver(`src/components/${categoryValue}/${component}/${fileMdName}`)
 
   // 读取模板
-  const template = createStoryComponent(categoryValue, component)
+  const template = createStoryComponent(categoryValue, component, options)
   const md = createStoryMd(component)
   // 生成文件
   try {
