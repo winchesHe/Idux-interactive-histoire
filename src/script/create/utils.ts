@@ -42,9 +42,9 @@ export const generateStoryDoc = (component: ComponentType, options: optionsType,
   let category: CategoryType
   const findCategoryList = (module: any) => {
     return categoryList.find((type) => {
-      if (type === 'components')
-        return componentCollection['开发套件'].components?.includes(component as any)
-      return (componentCollection as any)[module!][type]?.components?.includes(component as any)
+      if (type === 'components' || module === '开发套件')
+        return componentCollection['开发套件'].components.find(item => item.includes(component as any))
+      return (componentCollection as any)[module!][type]?.components.find((item: any) => item.includes(component as any))
     })
   }
   if (module) {
