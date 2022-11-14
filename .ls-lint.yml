@@ -4,9 +4,9 @@ ls:
     .spec.ts: camelCase
     .d.ts: kebabcase
     .vue: PascalCase
-    .story.vue: pointcase
+    .story.vue: regex:[a-zA-Z.]+
     .md: PascalCase
-    .story.md: pointcase
+    .story.md: regex:[a-zA-Z.]+
     .zh.md: PascalCase
     .en.md: PascalCase
 
