@@ -91,7 +91,7 @@ const IconOptions = ref(icon)
 
 <template>
   <Story
-    title="Basic/Button" icon="teenyicons:button-outline" :layout="{
+    title="Basic/Button(按钮)" icon="teenyicons:button-outline" :layout="{
       type: 'grid',
       width: 400,
     }"

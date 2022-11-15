@@ -28,7 +28,7 @@ const dividerSizeOptions: HstControlOption<DividerProps['size']>[] = [
 <!-- icon from https://icones.js.org/collection/all?s=divider -->
 <template>
   <Story
-    title="layout/Divider"
+    title="layout/Divider(分割线)"
     icon="teenyicons:divider-line-outline"
     :layout="{
       type: 'grid',
