@@ -19,8 +19,8 @@ function initState() {
 }
 </script>
 
+<!-- icon from https://icones.js.org/collection/all?s=${lowerFirst(component)} -->
 <template>
-  <!-- icon from https://icones.js.org/collection/all?s=${lowerFirst(component)} -->
   <Story
     title="${category ? `${category}/` : ''}${component}"
     icon="cil:3d"${options.grid ? ' :layout="{ type: \'grid\', width: 400 }"' : ''}
