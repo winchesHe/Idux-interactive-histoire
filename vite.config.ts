@@ -40,4 +40,11 @@ export default defineConfig({
       overlay: false, // fix：unocss服务保存
     },
   },
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+      },
+    },
+  },
 })
