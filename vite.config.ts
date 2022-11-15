@@ -22,7 +22,7 @@ export default defineConfig({
     Inspect(),
     AutoImport({
       imports: ['vue', '@vueuse/core'],
-      dirs: ['src/components/**/*'],
+      dirs: ['src/components/**/*.vue'],
       // 需自动生成时打开
       dts: 'src/auto-imports.d.ts',
       // false 关闭自动导入防止覆盖额外添加内容
