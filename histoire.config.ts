@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'pathe'
 import { defineConfig } from 'histoire'
 import { HstVue } from '@histoire/plugin-vue'
 import { getCdkComponents, getProComponents } from './src/utils'
