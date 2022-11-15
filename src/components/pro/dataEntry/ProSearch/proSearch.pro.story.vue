@@ -1,327 +1,582 @@
+<!-- eslint-disable no-console -->
 <script setup lang="ts">
-import type { ButtonMode, ButtonShape, ButtonSize } from '@idux/components'
+import type { ProSearchProps, SearchField, SearchItemConfirmContext, SearchValue } from '@idux/pro'
 import { logEvent } from 'histoire/client'
+
+type SelectField = SearchField & { type: 'select' }
+
+const selectField = reactive<SelectField>({
+  type: 'select',
+  label: 'Security State',
+  key: 'security_state',
+  fieldConfig: {
+    multiple: true,
+    searchable: true,
+    dataSource: [],
+  },
+  onPanelVisibleChange: (visible) => {
+    if (visible) {
+      setTimeout(
+        () =>
+          (selectField.fieldConfig.dataSource = [
+            {
+              key: 'fatal',
+              label: 'fatal',
+            },
+            {
+              key: 'high',
+              label: 'high',
+            },
+            {
+              key: 'mediumn',
+              label: 'mediumn',
+            },
+            {
+              key: 'low',
+              label: 'low',
+              disabled: true,
+            },
+          ]),
+        500,
+      )
+    }
+  },
+})
+const selectSearchFields: SearchField[] = [
+  {
+    key: 'keyword',
+    type: 'input',
+    label: 'Keyword',
+    multiple: true,
+    fieldConfig: {
+      trim: true,
+    },
+  },
+  selectField,
+]
+const value = ref<ProSearchProps['value']>([
+  {
+    key: 'level',
+    name: 'Level',
+    operator: '=',
+    value: 'level1',
+  },
+  {
+    key: 'security_state',
+    name: 'Security State',
+    value: ['high', 'low'],
+  },
+  {
+    key: 'keyword',
+    name: '',
+    value: 'custom keyword',
+  },
+])
+
+const searchFields: ProSearchProps['searchFields'] = [
+  {
+    key: 'keyword',
+    type: 'input',
+    label: 'Keyword',
+    multiple: true,
+    fieldConfig: {
+      trim: true,
+    },
+  },
+  {
+    type: 'select',
+    label: 'Level',
+    key: 'level',
+    operators: ['=', '!='],
+    defaultOperator: '=',
+    fieldConfig: {
+      multiple: false,
+      searchable: true,
+      dataSource: [
+        {
+          key: 'level1',
+          label: 'Level 1',
+        },
+        {
+          key: 'level2',
+          label: 'Level 2',
+        },
+        {
+          key: 'level3',
+          label: 'Level 3',
+        },
+      ],
+    },
+  },
+  {
+    type: 'select',
+    label: 'Security State',
+    key: 'security_state',
+    fieldConfig: {
+      multiple: true,
+      searchable: true,
+      dataSource: [
+        {
+          key: 'fatal',
+          label: 'fatal',
+        },
+        {
+          key: 'high',
+          label: 'high',
+        },
+        {
+          key: 'mediumn',
+          label: 'mediumn',
+        },
+        {
+          key: 'low',
+          label: 'low',
+        },
+      ],
+    },
+  },
+  {
+    type: 'datePicker',
+    label: 'Date',
+    key: 'date',
+    fieldConfig: {
+      type: 'datetime',
+    },
+  },
+  {
+    type: 'dateRangePicker',
+    label: 'Date Range',
+    key: 'date_range',
+    fieldConfig: {
+      type: 'datetime',
+    },
+  },
+]
+
+const searchValidatorFields: ProSearchProps['searchFields'] = [
+  {
+    key: 'keyword',
+    type: 'input',
+    label: 'Keyword',
+    multiple: true,
+    fieldConfig: {
+      trim: true,
+    },
+    validator(searchValue) {
+      if (/[?^<>/+\-=]/.test(searchValue.value))
+        return { message: 'keyword mustn\'t contain ?^<>+-=' }
+    },
+  },
+  {
+    type: 'datePicker',
+    label: 'Creation Time',
+    key: 'date',
+    operators: ['=', '>', '<'],
+    fieldConfig: {
+      type: 'datetime',
+    },
+    validator(searchValue) {
+      const { operator, value } = searchValue
+      const currentYear = new Date().getFullYear()
+      if ((operator === '>' || operator === '=') && value.getFullYear() > currentYear)
+        return { message: `cannot select date after year ${currentYear}` }
+
+      if ((operator === '<' || operator === '=') && value.getFullYear() < 2000)
+        return { message: 'cannot select date before year 2000' }
+    },
+  },
+]
 
 function initState() {
   return {
-    value: 'default',
-    size: 'md',
-    icon: 'search',
-    shape: '',
-    danger: true,
+    value,
+    searchFields,
+    searchValidatorFields,
     disabled: true,
-    loading: true,
-    ghost: true,
-    block: true,
-    stateLoading: false,
-    stateDisabled: false,
+    searchValues: [],
+    errors: [],
+    mergeValue: [
+      {
+        key: 'level',
+        name: 'Level',
+        operator: '=',
+        value: 'level1',
+      },
+      {
+        key: 'keyword',
+        name: '',
+        value: 'custom keyword',
+      },
+    ],
   }
 }
 
-const buttonMode: HstControlOption<ButtonMode>[] = [
-  {
-    label: 'default',
-    value: 'default',
-  }, {
-    label: 'link',
-    value: 'link',
-  }, {
-    label: 'primary',
-    value: 'primary',
-  }, {
-    label: 'dashed',
-    value: 'dashed',
-  }, {
-    label: 'text',
-    value: 'text',
-  },
-]
-const buttonSize: HstControlOption<ButtonSize>[] = [
-  {
-    label: '加大',
-    value: 'xl',
-  }, {
-    label: '大',
-    value: 'lg',
-  }, {
-    label: '正常',
-    value: 'md',
-  }, {
-    label: '小',
-    value: 'sm',
-  }, {
-    label: '超小',
-    value: 'xs',
-  },
-]
-const icon: HstControlOption[] = [
-  {
-    label: '搜索图标',
-    value: 'search',
-  }, {
-    label: '灯泡',
-    value: 'bulb',
-  }, {
-    label: '关闭',
-    value: 'close-circle',
-  }, {
-    label: '加号',
-    value: 'plus',
-  }, {
-    label: '减号',
-    value: 'minus',
-  }]
+const onChange = (value: ProSearchProps['value'] | undefined, oldValue: ProSearchProps['value'] | undefined) => {
+  logEvent('onChange', { value, oldValue })
+}
+const onSearch = ($el: any) => {
+  logEvent('onSearch', $el)
+}
 
-const shape: HstControlOption<ButtonShape | ''>[] = [
+function onItemConfirm(searchValues: ProSearchProps['value']) {
+  return function (context: SearchItemConfirmContext) {
+    const { removed, nameInput, operatorInput, valueInput } = context
+    if (!removed)
+      return
+
+    searchValues!.push({
+      key: 'keyword',
+      value: (nameInput ?? '') + (operatorInput ?? '') + (valueInput ?? ''),
+    })
+  }
+}
+const securityStateField = reactive<SearchField>({
+  type: 'select',
+  label: 'Security State',
+  key: 'security_state',
+  multiple: true,
+  fieldConfig: {
+    multiple: true,
+    searchable: true,
+    dataSource: [
+      {
+        key: 'fatal',
+        label: 'fatal',
+      },
+      {
+        key: 'high',
+        label: 'high',
+      },
+      {
+        key: 'mediumn',
+        label: 'mediumn',
+      },
+      {
+        key: 'low',
+        label: 'low',
+      },
+    ],
+  },
+})
+const securitySearchFields: SearchField[] = reactive([
   {
-    label: '长方形按钮(默认)',
-    value: '',
-  }, {
-    label: '圆角长方形',
-    value: 'round',
-  }, {
-    label: '正方形',
-    value: 'square',
-  }]
-const ShapOptions = ref(shape)
-const ButtonOptions = ref(buttonMode)
-const ButtonSizeOptions = ref(buttonSize)
-const IconOptions = ref(icon)
+    key: 'keyword',
+    type: 'input',
+    label: 'Keyword',
+    multiple: true,
+    fieldConfig: {
+      trim: true,
+    },
+  },
+  {
+    type: 'select',
+    label: 'Level',
+    key: 'level',
+    operators: ['=', '!='],
+    defaultOperator: '=',
+    fieldConfig: {
+      multiple: false,
+      searchable: true,
+      dataSource: [
+        {
+          key: 'level1',
+          label: 'Level 1',
+        },
+        {
+          key: 'level2',
+          label: 'Level 2',
+        },
+        {
+          key: 'level3',
+          label: 'Level 3',
+        },
+      ],
+    },
+  },
+  securityStateField,
+])
+
+const handleValueUpdate = (searchValues: ProSearchProps['value'] | undefined) => {
+  const securityStateValues = searchValues?.filter(v => v.key === 'security_state') as
+    | SearchValue<string[]>[]
+    | undefined
+
+  if (!securityStateValues?.length) {
+    value.value = searchValues ?? []
+    return
+  }
+
+  const currentValue = securityStateValues.pop()!
+  value.value = !securityStateValues.length
+    ? searchValues!
+    : [...searchValues!.filter(v => v.key !== 'security_state'), currentValue]
+
+  securityStateField.defaultValue = currentValue.value
+}
+
+interface UserData {
+  username: string
+  phone: string
+  gender: 'male' | 'female'
+}
+
+const userReg = /^(\w+)-(male|female): (\d+)$/
+const customerSearchFields: SearchField[] = [
+  {
+    type: 'custom',
+    key: 'custom_input',
+    label: 'IP Input',
+    fieldConfig: {
+      parse: (input) => {
+        return input.split(',').map(ip => ip.trim())
+      },
+      format: (value) => {
+        if (!value)
+          return ''
+
+        return (value as string[]).join(', ')
+      },
+    },
+  },
+  {
+    type: 'custom',
+    key: 'custom_form',
+    label: 'User',
+    defaultValue: {
+      username: 'Kirito',
+      gender: 'male',
+      phone: '103006',
+    },
+    inputClassName: 'demo-pro-search-custom-user-form-input',
+    fieldConfig: {
+      customPanel: 'userForm',
+      parse: (input) => {
+        const res = input.match(userReg)
+        if (!res)
+          return
+
+        const username = res[1]
+        const gender = res[2]
+        const phone = res[3]
+
+        return username || gender || phone
+          ? {
+              username,
+              gender,
+              phone,
+            }
+          : undefined
+      },
+      format: (value) => {
+        if (!value)
+          return ''
+
+        const { username, gender, phone } = value as UserData
+        return `${username ?? 'username'}-${gender ?? 'gender'}: ${phone ?? 'phone'}`
+      },
+    },
+  },
+]
+const handleUserFormKeyDown = (evt: KeyboardEvent, confirm: () => void) => {
+  if (evt.key === 'Enter')
+    confirm()
+}
 </script>
 
+<!-- icon from https://icones.js.org/collection/all?s=proSearch -->
 <template>
   <Story
-    title="dataEntry/ProSearch" icon="teenyicons:button-outline" :layout="{
-      type: 'grid',
-      width: 400,
-    }"
+    title="dataEntry/ProSearch(复合搜素)"
+    icon="ic:baseline-manage-search"
+    :layout="{ type: 'grid', width: 800 }"
   >
+    <!-- eslint-disable vue/attribute-hyphenation -->
+    <!-- eslint-disable vue/no-template-shadow -->
     <Variant
-      title="按钮类型"
+      title="基本使用"
       :init-state="initState"
     >
       <template #default="{ state }">
         <Describe>
-          按钮共有 5 种类型：主按钮、默认按钮、虚线按钮和链接按钮，通过设置 mode 来使用不同的类型。
+          最简单的用法。关键字为默认内置搜索项。
         </Describe>
-        <ix-button
-          :mode="state.value" :href="state.value === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
-          :target="state.value === 'link' ? '_blank' : ''" @click="logEvent('btnClick', $el)"
-        >
-          {{ state.value }}
-        </ix-button>
-      </template>
-
-      <template #controls="{ state }">
-        <HstRadio v-model="state.value" title="mode" :options="ButtonOptions" />
-      </template>
-    </Variant>
-
-    <Variant
-      title="按钮尺寸"
-      :init-state="initState"
-    >
-      <template #default="{ state }">
-        <Describe>
-          按钮共有 5 种尺寸：超小、小、中、大、超大，默认为中。
-        </Describe>
-        <ix-button
-          :mode="state.value" :href="state.value === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
-          :target="state.value === 'link' ? '_blank' : ''" :size="state.size" @click="logEvent('btnClick', $el)"
-        >
-          {{ state.value }}
-        </ix-button>
-      </template>
-
-      <template #controls="{ state }">
-        <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
-        <HstRadio v-model="state.size" title="size" :options="ButtonSizeOptions" />
-      </template>
-    </Variant>
-
-    <Variant title="禁用状态" :init-state="initState">
-      <template #default="{ state }">
-        <Describe>禁用状态下按钮不可点击。</Describe>
-        <ix-button
-          :mode="state.value" :href="state.value === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
-          :target="state.value === 'link' ? '_blank' : ''" :disabled="state.disabled" @click="logEvent('btnClick', $el)"
-        >
-          {{ state.value }}
-        </ix-button>
-      </template>
-
-      <template #controls="{ state }">
-        <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
-        <HstCheckbox v-model="state.disabled" title="disabled" />
-      </template>
-    </Variant>
-
-    <Variant title="按钮图标" :init-state="initState">
-      <template #default="{ state }">
-        <Describe>图标按钮由图标 + 文字或图标构成，通过图标可增强识别性，以便直观理解。</Describe>
-        <IxSpace>
-          <IxButton :icon="state.icon">
-            {{ state.icon }}
-          </IxButton>
-          <IxButton :icon="state.icon" />
-        </IxSpace>
-      </template>
-
-      <template #controls="{ state }">
-        <HstSelect
-          v-model="state.icon" title="icon" :options="IconOptions"
+        <IxProSearch
+          v-model:value="state.value"
+          style="width: 100%"
+          :search-fields="state.searchFields"
+          :on-change="onChange"
+          :on-search="onSearch"
         />
       </template>
     </Variant>
 
-    <Variant title="加载中状态" :init-state="initState">
+    <Variant
+      title="禁用"
+      :init-state="initState"
+    >
       <template #default="{ state }">
-        <IxSpace>
-          <Describe>加载中状态下按钮不可点击，此时会显示加载图标，自定义设置的 icon 无效。</Describe>
-          <ix-button
-            :mode="state.value" :href="state.value === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
-            :target="state.value === 'link' ? '_blank' : ''" :loading="state.loading" @click="logEvent('btnClick', $el)"
-          >
-            {{ state.value }}
-          </ix-button>
-          <IxButton mode="dashed" loading>
-            dashed
-          </IxButton>
-          <IxButton mode="primary" loading>
-            primary
-          </IxButton>
-          <IxButton mode="link" loading href="https://github.com/IDuxFE/idux" target="_blank">
-            link
-          </IxButton>
-        </IxSpace>
+        <Describe>
+          通过配置 disabled 来禁用搜索
+        </Describe>
+        <IxProSearch
+          v-model:value="state.value"
+          :disabled="state.disabled"
+          style="width: 100%"
+          :search-fields="state.searchFields"
+          :on-change="onChange"
+        />
       </template>
 
       <template #controls="{ state }">
-        <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
-        <HstCheckbox v-model="state.loading" title="loading" />
+        <HstCheckbox v-model="state.disabled" title="disabled" />
       </template>
-    </variant>
+    </Variant>
 
-    <Variant title="幽灵按钮" :init-state="initState">
+    <Variant
+      title="非法搜索项处理"
+      :init-state="initState"
+    >
       <template #default="{ state }">
-        <Describe>通过设置 ghost 将按钮的背景设为透明，通常在有色背景上。</Describe>
-        <IxSpace class="button-ghost-demo">
-          <IxButton :mode="state.value" :ghost="state.ghost" :loading="state.stateLoading" :disabled="state.stateDisabled">
-            {{ state.value }}
-          </IxButton>
-          <IxButton mode="primary" :ghost="state.ghost" :loading="state.stateLoading" :disabled="state.stateDisabled">
-            primary
-          </IxButton>
-          <IxButton mode="dashed" :ghost="state.ghost" :loading="state.stateLoading" :disabled="state.stateDisabled">
-            dashed
-          </IxButton>
-          <IxButton danger :ghost="state.ghost" :loading="state.stateLoading" :disabled="state.stateDisabled">
-            danger
-          </IxButton>
-        </IxSpace>
+        <Describe>
+          通过 searchField.validator 校验搜索项。
+        </Describe>
+        <IxProSearch
+          v-model:value="state.searchValues"
+          v-model:errors="state.errors"
+          style="width: 100%"
+          :search-fields="state.searchFields"
+          :on-change="onChange"
+          :on-search="onSearch"
+        />
       </template>
+    </Variant>
 
-      <template #controls="{ state }">
-        <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
-        <HstCheckbox v-model="state.ghost" title="ghost" />
-        <HstCheckbox v-model="state.stateLoading" title="loading" />
-        <HstCheckbox v-model="state.stateDisabled" title="disabled" />
-      </template>
-    </variant>
-
-    <Variant title="危险按钮" :init-state="initState">
+    <Variant
+      title="非法搜索项转换为关键字"
+      :init-state="initState"
+    >
       <template #default="{ state }">
-        <Describe>通过设置 danger 将按钮标识为危险状态。</Describe>
-        <ix-button
-          :mode="state.value" :href="state.value === 'link' ? 'https://github.com/IDuxFE/idux' : ''"
-          :target="state.value === 'link' ? '_blank' : ''" :danger="state.danger" @click="logEvent('btnClick', $el)"
+        <Describe>
+          使用 onItemConfirm 事件将非法搜索项转换为关键字。
+        </Describe>
+        <IxProSearch
+          v-model:value="state.searchValues"
+          style="width: 100%"
+          :search-fields="state.searchFields"
+          :on-change="onChange"
+          :on-search="onSearch"
+          :on-item-confirm="onItemConfirm"
+        />
+      </template>
+    </Variant>
+
+    <Variant
+      title="合并同类选项"
+      :init-state="initState"
+    >
+      <template #default="{ state }">
+        <Describe>
+          合并同类选项并置于尾部。
+        </Describe>
+        <IxProSearch
+          :value="state.mergeValue"
+          style="width: 100%"
+          :search-fields="securitySearchFields"
+          :on-search="onSearch"
+          :onUpdate:value="handleValueUpdate"
+        />
+      </template>
+    </Variant>
+
+    <Variant
+      title="自定义搜索项"
+      :init-state="initState"
+    >
+      <template #default="{ state }">
+        <Describe>
+          通过 'custom' 类型的option自定义搜索项。
+        </Describe>
+        <IxProSearch
+          v-model:value="state.searchValue"
+          style="width: 100%"
+          :searchFields="customerSearchFields"
+          :onChange="onChange"
+          :onSearch="onSearch"
+          overlayContainer="demo-pro-search-custom"
         >
-          {{ state.value }}
-        </ix-button>
+          <template #userForm="{ setValue, ok, value }">
+            <IxSpace class="demo-pro-search-custom-user-form" vertical>
+              <IxSpace>
+                <label class="label">username: </label>
+                <IxInput
+                  class="value"
+                  :value="value?.username"
+                  :onChange="input => setValue({ ...(value ?? {}), username: input })"
+                  :onKeydown="evt => handleUserFormKeyDown(evt, ok)"
+                />
+              </IxSpace>
+              <IxSpace>
+                <label class="label">gender: </label>
+                <IxSelect
+                  class="value"
+                  overlayContainer="demo-pro-search-custom"
+                  :value="value?.gender"
+                  :onChange="gender => setValue({ ...(value ?? {}), gender })"
+                  :onKeydown="evt => handleUserFormKeyDown(evt, ok)"
+                >
+                  <IxSelectOption key="male" value="male">
+                    male
+                  </IxSelectOption>
+                  <IxSelectOption key="female" value="female">
+                    female
+                  </IxSelectOption>
+                </IxSelect>
+              </IxSpace>
+              <IxSpace>
+                <label class="label">phone: </label>
+                <IxInput
+                  class="value"
+                  :value="value?.phone"
+                  :onChange="input => setValue({ ...(value ?? {}), phone: input })"
+                  :onKeydown="evt => handleUserFormKeyDown(evt, ok)"
+                />
+              </IxSpace>
+            </IxSpace>
+          </template>
+        </IxProSearch>
       </template>
+    </Variant>
 
-      <template #controls="{ state }">
-        <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
-        <HstCheckbox v-model="state.danger" title="danger" />
-      </template>
-    </variant>
-
-    <Variant title="按钮形状" :init-state="initState">
+    <Variant
+      title="面板展开时加载数据"
+      :init-state="initState"
+    >
       <template #default="{ state }">
-        <Describe>除了默认的长方形按钮，还提供了圆角长方形、正方形、圆形等形状。</Describe>
-        <IxSpace>
-          <IxButton icon="bulb" :mode="state.value" :shape="state.shape" />
-          <IxButton shape="round">
-            Button
-          </IxButton>
-          <IxButton :icon="state.icon" shape="square" />
-        </IxSpace>
+        <Describe>
+          使用 searchField.onVisibleChange 在面板展开时加载数据。
+        </Describe>
+        <IxProSearch v-model:value="state.searchValues" style="width: 100%" :searchFields="selectSearchFields" />
       </template>
-
-      <template #controls="{ state }">
-        <HstRadio v-model="state.shape" title="shape" :options="ShapOptions" />
-        <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
-        <HstSelect v-model="state.icon" title="icon" :options="IconOptions" />
-      </template>
-    </variant>
-
-    <Variant title="Block 按钮" :init-state="initState">
-      <template #default="{ state }">
-        <Describe>通过设置 block 将按钮宽度调整为自适应其父元素的宽度, 该按钮常见于移动端和一些表单场景中。</Describe>
-        <IxSpace vertical block>
-          <IxButton :mode="state.value" :block="state.block">
-            {{ state.value }}
-          </IxButton>
-          <IxButton mode="primary" :block="state.block">
-            primary
-          </IxButton>
-          <IxButton mode="dashed" :block="state.block">
-            dashed
-          </IxButton>
-          <IxButton mode="text" :block="state.block">
-            text
-          </IxButton>
-          <IxButton mode="link" :block="state.block" href="https://github.com/IDuxFE/idux" target="_blank">
-            link
-          </IxButton>
-        </IxSpace>
-      </template>
-
-      <template #controls="{ state }">
-        <HstSelect v-model="state.value" title="mode" :options="ButtonOptions" />
-        <HstCheckbox v-model="state.block" title="block" />
-      </template>
-    </variant>
-
-    <Variant title="按钮组" :init-state="initState">
-      <template #default="{ state }">
-        <Describe>提供文字提示 + 操作行为。</Describe>
-        <IxSpace>
-          <IxButtonGroup>
-            <IxButton :mode="state.value" block>
-              {{ state.value }}
-            </IxButton>
-            <IxButton :mode="state.value" icon="search" shape="square" />
-          </IxButtonGroup>
-          <IxButtonGroup>
-            <IxButton block>
-              default
-            </IxButton>
-            <IxButton icon="down" shape="square" />
-          </IxButtonGroup>
-        </IxSpace>
-      </template>
-
-      <template #controls="{ state }">
-        <HstRadio v-model="state.value" title="mode" :options="ButtonOptions" />
-      </template>
-    </variant>
-  </story>
+    </Variant>
+  </Story>
 </template>
 
 <style scoped>
-.button-ghost-demo {
-  background: rgb(200, 200, 200);
-  padding: 16px;
+.demo-pro-search-custom-user-form {
+  height: 200px;
+  padding: 8px;
+  box-shadow: inset 0 0 2px #684545;
+}
+.demo-pro-search-custom-user-form .label {
+  display: inline-block;
+  width: 70px;
+}
+.demo-pro-search-custom-user-form .value {
+  width: 200px;
+}
+.demo-pro-search-custom-user-form-input {
+  min-width: 305px;
+  color: #684545;
+  text-align: center;
 }
 </style>
