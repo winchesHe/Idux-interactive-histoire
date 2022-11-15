@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import type { FocusOrigin } from '@idux/cdk/a11y'
-import { useSharedFocusMonitor } from '@idux/cdk/a11y'
-import { logEvent } from 'histoire/client'
 
 const element = ref<HTMLElement>()
 const subtree = ref<HTMLElement>()
@@ -9,32 +7,6 @@ const subtree = ref<HTMLElement>()
 const elementOrigin = ref<FocusOrigin>(null)
 const subtreeOrigin = ref<FocusOrigin>(null)
 
-const focusMonitor = useSharedFocusMonitor()
-
-onMounted(() => {
-  setInterval(() => {
-    if (elementOrigin.value)
-      focusMonitor.blurVia(element.value)
-
-    else
-      focusMonitor.focusVia(element.value, 'program')
-  }, 3000)
-
-  watch(focusMonitor.monitor(element), ({ origin, event }) => {
-    elementOrigin.value = origin
-    logEvent('focus', { origin, event })
-  })
-
-  watch(focusMonitor.monitor(subtree, true), ({ origin, event }) => {
-    subtreeOrigin.value = origin
-    logEvent('focus', { origin, event })
-  })
-})
-
-onBeforeUnmount(() => {
-  focusMonitor.stopMonitoring(element)
-  focusMonitor.stopMonitoring(subtree)
-})
 function initState() {
   return {
     value: 'default',
