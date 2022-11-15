@@ -3,7 +3,7 @@ body{
   color: #606266;
 }
 
-html.htw-dark {
+html.htw-dark{
   background: #27272a ;
   color: #e9e9ed;
 }
@@ -21,6 +21,6 @@ html.htw-dark {
   border-color: #4c4d4f;
 }
 
-.dark{
+.dark, .htw-dark .describe{
   color: #fff;
 }
