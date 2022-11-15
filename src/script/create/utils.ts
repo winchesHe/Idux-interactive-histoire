@@ -16,7 +16,8 @@ export const getComponentChoices = async () => {
   const categoryValue: CategoryObjValue = categoryObj[category]
 
   try {
-    const path = resolver(`src/components/${moduleObj[module]}/${categoryValue}/`)
+    const moduleValue = module === '开发套件' ? '' : `${categoryValue}/`
+    const path = resolver(`src/components/${moduleObj[module]}/${moduleValue}`)
     if (existsSync(path))
       files = readdirSync(path)
   }
@@ -41,9 +42,9 @@ export const getComponentChoices = async () => {
 export const generateStoryDoc = (component: ComponentType, options: optionsType, module?: CategoryComType) => {
   let category: CategoryType
   const findCategoryList = (module: any) => {
+    if (module === '开发套件')
+      return componentCollection['开发套件'].components.find((item: any) => item.includes(component as any))
     return categoryList.find((type) => {
-      if (type === 'components' || module === '开发套件')
-        return componentCollection['开发套件'].components.find(item => item.includes(component as any))
       return (componentCollection as any)[module!][type]?.components.find((item: any) => item.includes(component as any))
     })
   }

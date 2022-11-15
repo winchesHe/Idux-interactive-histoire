@@ -8,6 +8,7 @@ const moduleTemplateObj = {
   高级组件: 'pro',
   开发套件: 'cdk',
 } as const
+
 export const createStoryComponent = (category: CategoryObjValue, component: ComponentType, options: optionsType, module: CategoryComType) => `\
 <script setup lang="ts">
 import type { ${component}Props } from '@idux/${moduleTemplateObj[module]}'
@@ -22,7 +23,7 @@ function initState() {
 <!-- icon from https://icones.js.org/collection/all?s=${lowerFirst(component)} -->
 <template>
   <Story
-    title="${category ? `${category}/` : ''}${component}"
+    title="${category ? `${category}/` : ''}${getComponentTitle(category, component, module)}"
     icon="cil:3d"${options.grid ? ' :layout="{ type: \'grid\', width: 400 }"' : ''}
   >
     <Variant
@@ -163,7 +164,7 @@ export const componentCollection = {
   开发套件: {
     components: [
       'Accessibility(无障碍性)',
-      'Breakpoint(断电)',
+      'Breakpoint(断点)',
       'ClickOutside(点击外部)',
       'Clipboard(剪贴板)',
       'DragDrop(拖放)',
@@ -191,6 +192,18 @@ export const moduleObj = {
   高级组件: 'pro',
   开发套件: 'cdk',
 } as const
+function getComponentTitle(category: CategoryObjValue, component: ComponentType, module: CategoryComType) {
+  const categoryArray = Object.entries(categoryObj)
+  category = categoryArray.find((item) => {
+    const value = item[1]
+    return value.includes(category)
+  })?.[0] as any
+  if (module === '开发套件')
+    return componentCollection['开发套件'].components.find(item => item.includes(component))
+
+  else
+    return (componentCollection as any)[module][category]?.components.find((item: any) => item.includes(component))
+}
 export type CategoryObjValue = typeof categoryObj[keyof typeof categoryObj]
 export interface optionsType { grid: boolean }
 
