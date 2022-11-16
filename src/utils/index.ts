@@ -2,9 +2,9 @@ import type { CdkComponentType, ProCategory, ProComponentType } from '../script/
 import { componentCollection } from '../script/create/constant'
 import type { Enum2Tuple, UnionToArray } from './typeTools'
 
-type CdkTuple = Enum2Tuple<CdkComponentType, CdkComponentType>
-type ProTuple = Enum2Tuple<ProComponentType, ProComponentType>
-type proKeysTuple = Enum2Tuple<ProCategory, ProCategory>
+type CdkTuple = Enum2Tuple<CdkComponentType>
+type ProTuple = Enum2Tuple<ProComponentType>
+type proKeysTuple = Enum2Tuple<ProCategory>
 export type CdkArrayList = UnionToArray<CdkComponentType>
 export type ProArrayList = UnionToArray<ProComponentType>
 
