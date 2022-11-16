@@ -15,9 +15,9 @@ export type GetUnionLength<T, C extends any[] = [], K = GetUnionLastValue<T>> = 
   : GetUnionLength<Exclude<T, K>, [K, ...C]>
   type Push<T extends any[], U> = [...T, U]
 
-export type Enum2Tuple<T, ArrayType = T, A extends any[] = [], L = GetUnionLength<T>> = A['length'] extends L
+export type Union2Tuple<T, ArrayType = T, A extends any[] = [], L = GetUnionLength<T>> = A['length'] extends L
   ? A
-  : Enum2Tuple<T, ArrayType, Push<A, ArrayType>>
+  : Union2Tuple<T, ArrayType, Push<A, ArrayType>>
 
 export type Merge<F, S> = {
   [P in keyof F | keyof S]: P extends keyof S ? S[P] : P extends keyof F ? F[P] : never
